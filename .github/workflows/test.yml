@@ -1,0 +1,22 @@
+name: Github Actions
+on: [push]
+
+jobs:
+  run-php:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'   # adapte si besoin (7.4, 8.0, etc.)
+      - name: Run run.php
+        run: php -d display_errors=1 -f run.php
+      - run: php -r "echo 'Hello, world.';"
+      - run: php -r "phpinfo();"
+      - run: php -r "print('Hello, world.');"
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
